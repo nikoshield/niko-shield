@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontak — NIKO-SHIELD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="inner-page">
+
+<nav class="site-nav reference-nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand brand-mark"><img src="assets/niko-shield-emblem.png" alt="Lambang NIKO-SHIELD"><span>NIKO-SHIELD</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="">Beranda</a>
+      <a href="tentang-produk.html" class="">Tentang</a>
+      <a href="#" class="" onclick="return false;">Produk</a>
+      <a href="manfaat.html" class="">Manfaat</a>
+      <a href="cara-kerja.html" class="">Cara Kerja</a>
+      <a href="kontak.html" class="active">Kontak</a>
+      <button type="button" class="nav-buy" onclick="this.classList.toggle(\'clicked\')">Beli Sekarang</button>
+    </div>
+    <button class="mobile-menu-toggle" type="button" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Hubungi Kami</h1>
+    <p>Ada pertanyaan, mau jual limbah, atau pesan produk? Hubungi lewat salah satu kanal ini</p>
+  </div>
+</div>
+
+<section class="kontak-section">
+  <div class="container">
+    <div class="kontak-grid">
+      <div class="kontak-card">
+        <div class="kontak-icon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+            <path d="M13 3 C7.5 3 3 7.5 3 13 C3 15 3.6 16.9 4.6 18.4 L3.3 23 L8 21.7 C9.5 22.6 11.2 23 13 23 C18.5 23 23 18.5 23 13 C23 7.5 18.5 3 13 3Z" fill="#fff"/>
+            <path d="M9 9 C9 8.5 9.4 8 10 8 L11 8 C11.4 8 11.7 8.3 11.8 8.6 L12.3 10.2 C12.4 10.5 12.3 10.9 12.1 11.1 L11.3 11.9 C11.9 13.3 12.9 14.3 14.3 14.9 L15.1 14.1 C15.3 13.9 15.7 13.8 16 13.9 L17.6 14.4 C17.9 14.5 18.2 14.8 18.2 15.2 L18.2 16.2 C18.2 16.8 17.7 17.2 17.2 17.2 C12.7 17.2 9 13.5 9 9Z" fill="#4C6530"/>
+          </svg>
+        </div>
+        <h3>WhatsApp</h3>
+        <p>Chat langsung untuk pertanyaan produk atau jual limbah</p>
+        <p style="margin-top:10px;"><a href="https://wa.me/6281311112222" target="_blank" rel="noopener">081311112222</a></p>
+      </div>
+
+      <div class="kontak-card">
+        <div class="kontak-icon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+            <rect x="3" y="6" width="20" height="14" rx="2" fill="#fff"/>
+            <path d="M4 7 L13 14 L22 7" stroke="#4C6530" stroke-width="1.6" fill="none"/>
+          </svg>
+        </div>
+        <h3>Email</h3>
+        <p>Kirim pertanyaan detail atau kerja sama lewat email</p>
+        <p style="margin-top:10px;"><a href="mailto:nikoshieldofficial@gmail.com">nikoshieldofficial@gmail.com</a></p>
+      </div>
+
+      <div class="kontak-card">
+        <div class="kontak-icon">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+            <path d="M13 2 C8 2 4.5 5.8 4.5 10.3 C4.5 16 13 24 13 24 C13 24 21.5 16 21.5 10.3 C21.5 5.8 18 2 13 2Z" fill="#fff"/>
+            <circle cx="13" cy="10.5" r="3.5" fill="#4C6530"/>
+          </svg>
+        </div>
+        <h3>Alamat</h3>
+        <p>Desa Blang Pulo, Kota Lhokseumawe, Provinsi Aceh</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="waste-section" id="jual-limbah">
+  <div class="container">
+    <div class="waste-heading">
+      <div class="section-kicker">PROGRAM SIRKULAR <span></span></div>
+      <h2>Jual Limbah Mu Disini</h2>
+      <p>Ubah limbah rumah tangga menjadi tambahan penghasilan sekaligus membantu proses daur ulang NIKO-SHIELD.</p>
+    </div>
+
+    <div class="waste-options">
+      <button class="waste-option active" type="button" data-type="puntung" data-price="30000">
+        <span class="waste-icon">🚬</span>
+        <span>
+          <strong>Puntung Rokok</strong>
+          <small>Harga jual per kg</small>
+          <b>Rp 30.000/kg</b>
+        </span>
+      </button>
+
+      <button class="waste-option" type="button" data-type="jelantah" data-price="7000">
+        <span class="waste-icon">🫙</span>
+        <span>
+          <strong>Minyak Jelantah</strong>
+          <small>Harga jual per kg</small>
+          <b>Rp 7.000/kg</b>
+        </span>
+      </button>
+    </div>
+
+    <div class="waste-calculator">
+      <div>
+        <div class="calc-label">Hitung Estimasi Pendapatan</div>
+        <p class="calc-help">Klik jenis limbah, masukkan berat dalam kilogram, lalu tekan hitung.</p>
+      </div>
+
+      <div class="calc-controls">
+        <div class="selected-waste">
+          <span id="selectedWasteIcon">🚬</span>
+          <span id="selectedWasteName">Puntung Rokok</span>
+          <span class="calc-price" id="selectedWastePrice">Rp 30.000/kg</span>
+        </div>
+        <div class="kg-input">
+          <input id="wasteKg" type="number" min="0" step="0.1" placeholder="Masukkan jumlah (kg)" inputmode="decimal" aria-label="Jumlah limbah dalam kilogram">
+          <span>kg</span>
+        </div>
+        <button id="calculateWaste" type="button">Hitung</button>
+      </div>
+
+      <div class="calc-result" aria-live="polite">
+        <span class="money-icon">Rp</span>
+        <div>
+          <small>Estimasi harga jual</small>
+          <strong id="wasteResult">Rp 0</strong>
+          <span id="wasteFormula">per kg Rp 30.000</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="waste-note">
+      <span>♻</span>
+      <div><strong>Limbah Anda Bernilai!</strong><br><small>Jangan buang sembarangan. Jadikan limbah sebagai sumber manfaat dan ikut menjaga lingkungan bersama NIKO-SHIELD.</small></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  NIKO-SHIELD — biopestisida daur ulang untuk lahan yang lebih sehat.
+<br>Email: <a href="mailto:nikoshield@gmail.com">nikoshield@gmail.com</a>
+</footer>
+
+
+<script>
+/* NIKO-SHIELD mobile menu */
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.querySelector(".mobile-menu-toggle");
+  const links = document.querySelector(".nav-links");
+  if (!toggle || !links) return;
+  toggle.addEventListener("click", function () {
+    const open = links.classList.toggle("mobile-open");
+    toggle.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  links.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () {
+      links.classList.remove("mobile-open");
+      toggle.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+});
+</script>
+<!-- NIKO-SHIELD mobile menu -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const options = document.querySelectorAll(".waste-option");
+  const nameEl = document.getElementById("selectedWasteName");
+  const iconEl = document.getElementById("selectedWasteIcon");
+  const priceEl = document.getElementById("selectedWastePrice");
+  const resultEl = document.getElementById("wasteResult");
+  const formulaEl = document.getElementById("wasteFormula");
+  const inputEl = document.getElementById("wasteKg");
+  const buttonEl = document.getElementById("calculateWaste");
+
+  if (!options.length || !nameEl || !priceEl || !resultEl || !inputEl || !buttonEl) return;
+
+  let selectedPrice = 30000;
+  let selectedName = "Puntung Rokok";
+
+  const rupiah = n => "Rp " + Number(n).toLocaleString("id-ID");
+
+  options.forEach(option => {
+    option.addEventListener("click", function (e) {
+      e.preventDefault();
+      options.forEach(o => o.classList.remove("active"));
+      option.classList.add("active");
+
+      selectedPrice = Number(option.dataset.price);
+      selectedName = option.dataset.type === "jelantah" ? "Minyak Jelantah" : "Puntung Rokok";
+
+      nameEl.textContent = selectedName;
+      if (iconEl) iconEl.textContent = selectedName === "Minyak Jelantah" ? "🫙" : "🚬";
+      priceEl.textContent = rupiah(selectedPrice) + "/kg";
+      if (formulaEl) formulaEl.textContent = "per kg " + rupiah(selectedPrice);
+      resultEl.textContent = "Rp 0";
+    });
+  });
+
+  buttonEl.addEventListener("click", function (e) {
+    e.preventDefault();
+    const kg = parseFloat(inputEl.value);
+    if (!Number.isFinite(kg) || kg < 0) {
+      resultEl.textContent = "Masukkan jumlah kg";
+      inputEl.focus();
+      return;
+    }
+    resultEl.textContent = rupiah(kg * selectedPrice);
+  });
+
+  inputEl.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") buttonEl.click();
+  });
+});
+</script>
+
+</body>
+</html>
