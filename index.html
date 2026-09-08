@@ -7,1016 +7,136 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<style>
-  :root {
-    --forest: #2B3A1E;
-    --forest-deep: #1D2814;
-    --amber: #C98A2C;
-    --amber-soft: #E3B45C;
-    --soil: #5C4430;
-    --leaf: #7C9A57;
-    --paper: #F2ECD8;
-    --paper-dim: #E8E0C8;
-    --alert: #B5461D;
-    --ink: #23291B;
-  }
-
-  * { box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    margin: 0;
-    font-family: 'Public Sans', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    line-height: 1.55;
-  }
-
-  h1, h2, h3 {
-    font-family: 'Fraunces', serif;
-    margin: 0;
-    color: var(--forest-deep);
-  }
-
-  p { margin: 0 0 1em 0; max-width: 62ch; }
-
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* ---------- HERO ---------- */
-  .hero {
-    background: linear-gradient(180deg, var(--forest) 0%, var(--forest-deep) 100%);
-    color: var(--paper);
-    padding: 72px 0 88px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::after {
-    content: "";
-    position: absolute;
-    right: -80px;
-    bottom: -80px;
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,138,44,0.25) 0%, rgba(201,138,44,0) 70%);
-  }
-
-  .hero-inner { position: relative; z-index: 1; }
-
-  .hero .eyebrow {
-    font-weight: 600;
-    color: var(--leaf);
-    font-size: 0.95rem;
-    letter-spacing: 0.02em;
-    margin-bottom: 14px;
-  }
-
-  .hero h1 {
-    font-size: clamp(2.6rem, 6vw, 4.2rem);
-    color: #fff;
-    font-weight: 600;
-    line-height: 1.02;
-    margin-bottom: 20px;
-  }
-
-  .hero p.lead {
-    color: #E7E2CE;
-    font-size: 1.15rem;
-    max-width: 46ch;
-    margin-bottom: 32px;
-  }
-
-  .btn-primary {
-    display: inline-block;
-    background: var(--amber);
-    color: var(--forest-deep);
-    font-weight: 700;
-    padding: 14px 28px;
-    border-radius: 6px;
-    text-decoration: none;
-    border: none;
-    font-size: 1.05rem;
-    cursor: pointer;
-    font-family: 'Public Sans', sans-serif;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
-  .btn-primary:active { transform: translateY(0); }
-
-  .hero-footnote {
-    margin-top: 28px;
-    font-size: 0.9rem;
-    color: #B9C2A6;
-    border-left: 3px solid var(--leaf);
-    padding-left: 14px;
-    max-width: 42ch;
-  }
-
-  /* ---------- ABOUT ---------- */
-  .about {
-    padding: 64px 0;
-    border-bottom: 1px solid var(--paper-dim);
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 48px;
-    align-items: start;
-    margin-top: 28px;
-  }
-
-  @media (max-width: 720px) {
-    .about-grid { grid-template-columns: 1fr; }
-  }
-
-  .stat-row {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .stat-card {
-    background: var(--paper-dim);
-    border-radius: 8px;
-    padding: 20px 22px;
-    border-left: 4px solid var(--soil);
-  }
-
-  .stat-card.phi { border-left-color: var(--alert); }
-
-  .stat-card h3 {
-    font-size: 0.85rem;
-    text-transform: none;
-    color: var(--soil);
-    font-family: 'Public Sans', sans-serif;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .stat-card p { margin: 0; font-size: 0.98rem; }
-
-  section h2 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-
-  section .section-sub {
-    color: var(--soil);
-    font-size: 1.02rem;
-    max-width: 58ch;
-  }
-
-  /* ---------- KATALOG HAMA ---------- */
-  .hama {
-    padding: 64px 0;
-    background: var(--paper-dim);
-    border-bottom: 1px solid #DDD3B0;
-  }
-
-  .hama-card {
-    background: var(--paper);
-    border-radius: 10px;
-    padding: 26px 28px;
-    margin-top: 28px;
-    border: 1px solid #DDD3B0;
-  }
-
-  .hama-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-  }
-
-  .hama-field { margin-bottom: 16px; }
-
-  .hama-field:last-child { margin-bottom: 0; }
-
-  .hama-field .label {
-    font-weight: 700;
-    color: var(--soil);
-    font-size: 0.85rem;
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .hama-field p { margin: 0; }
-
-  .rekomendasi {
-    background: rgba(124,154,87,0.14);
-    border-radius: 6px;
-    padding: 12px 16px;
-  }
-
-  /* ---------- KALKULATOR ---------- */
-  .kalkulator {
-    padding: 64px 0 80px;
-  }
-
-  .calc-box {
-    margin-top: 32px;
-    background: var(--forest);
-    border-radius: 14px;
-    padding: 40px;
-    color: var(--paper);
-  }
-
-  @media (max-width: 600px) {
-    .calc-box { padding: 28px 20px; }
-  }
-
-  .calc-input-row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    margin-bottom: 8px;
-  }
-
-  .calc-field { flex: 1; min-width: 200px; }
-
-  .calc-field label {
-    display: block;
-    font-size: 0.9rem;
-    color: #C7CFB4;
-    margin-bottom: 8px;
-    font-weight: 600;
-  }
-
-  .calc-field input {
-    width: 100%;
-    padding: 14px 16px;
-    font-size: 1.15rem;
-    border-radius: 8px;
-    border: 2px solid transparent;
-    background: #fff;
-    color: var(--ink);
-    font-family: 'Public Sans', sans-serif;
-    font-weight: 600;
-  }
-
-  .calc-field input:focus {
-    outline: none;
-    border-color: var(--amber);
-  }
-
-  .calc-hint {
-    font-size: 0.85rem;
-    color: #9FAE86;
-    margin: 0 0 20px 0;
-  }
-
-  .calc-results {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-top: 24px;
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-  }
-
-  .calc-results.visible { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 680px) {
-    .calc-results { grid-template-columns: 1fr; }
-  }
-
-  .result-card {
-    background: var(--forest-deep);
-    border-radius: 10px;
-    padding: 20px;
-    border-top: 3px solid var(--amber);
-  }
-
-  .result-card .num {
-    font-family: 'Fraunces', serif;
-    font-size: 2.1rem;
-    font-weight: 600;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-
-  .result-card .unit {
-    font-size: 0.95rem;
-    color: var(--amber);
-    font-weight: 700;
-    margin-left: 4px;
-  }
-
-  .result-card .desc {
-    font-size: 0.88rem;
-    color: #B9C2A6;
-    margin-top: 6px;
-  }
-
-  .calc-error {
-    color: #F0B0A0;
-    font-size: 0.92rem;
-    margin-top: 10px;
-    display: none;
-  }
-
-  .calc-error.visible { display: block; }
-
-  /* ---------- QR SHARE ---------- */
-  .qr-share {
-    padding: 56px 0 72px;
-    background: var(--paper-dim);
-    border-top: 1px solid #DDD3B0;
-  }
-
-  .qr-box {
-    margin-top: 28px;
-    display: flex;
-    gap: 32px;
-    align-items: center;
-    flex-wrap: wrap;
-    background: var(--paper);
-    border: 1px solid #DDD3B0;
-    border-radius: 12px;
-    padding: 28px;
-  }
-
-  #qrcodeCanvas {
-    background: #fff;
-    padding: 12px;
-    border-radius: 8px;
-    display: inline-block;
-    line-height: 0;
-  }
-
-  .qr-box .qr-text { flex: 1; min-width: 220px; }
-
-  .qr-box .qr-text p { margin-bottom: 14px; }
-
-  .qr-link {
-    font-size: 0.85rem;
-    color: var(--soil);
-    word-break: break-all;
-    background: var(--paper-dim);
-    padding: 8px 12px;
-    border-radius: 6px;
-    display: inline-block;
-  }
-
-  .qr-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-  }
-
-  .btn-secondary {
-    background: transparent;
-    color: var(--forest-deep);
-    border: 2px solid var(--soil);
-    padding: 10px 18px;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 0.92rem;
-    cursor: pointer;
-    font-family: 'Public Sans', sans-serif;
-  }
-
-  .qr-note {
-    font-size: 0.82rem;
-    color: var(--soil);
-    margin-top: 6px;
-  }
-
-  /* ---------- PENGINGAT & PANDUAN ---------- */
-  .pengingat {
-    padding: 64px 0 72px;
-    background: var(--paper-dim);
-    border-top: 1px solid #DDD3B0;
-    border-bottom: 1px solid #DDD3B0;
-  }
-
-  .alarm-box {
-    margin-top: 28px;
-    background: var(--paper);
-    border: 1px solid #DDD3B0;
-    border-radius: 12px;
-    padding: 28px;
-  }
-
-  .alarm-form-row {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    align-items: flex-end;
-  }
-
-  .alarm-field { flex: 1; min-width: 180px; }
-
-  .alarm-field label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--soil);
-    margin-bottom: 8px;
-  }
-
-  .alarm-field input[type="date"] {
-    width: 100%;
-    padding: 12px 14px;
-    font-size: 1rem;
-    border-radius: 8px;
-    border: 1px solid #C9BE9C;
-    background: #fff;
-    color: var(--ink);
-    font-family: 'Public Sans', sans-serif;
-  }
-
-  .severity-toggle {
-    display: flex;
-    gap: 8px;
-  }
-
-  .severity-btn {
-    flex: 1;
-    padding: 12px 10px;
-    border-radius: 8px;
-    border: 2px solid #C9BE9C;
-    background: #fff;
-    color: var(--soil);
-    font-weight: 700;
-    font-size: 0.88rem;
-    cursor: pointer;
-    font-family: 'Public Sans', sans-serif;
-  }
-
-  .severity-btn.active {
-    border-color: var(--leaf);
-    background: rgba(124,154,87,0.18);
-    color: var(--forest-deep);
-  }
-
-  .alarm-status {
-    margin-top: 24px;
-    display: none;
-    border-radius: 10px;
-    padding: 20px 22px;
-    border-left: 5px solid var(--leaf);
-    background: rgba(124,154,87,0.12);
-  }
-
-  .alarm-status.visible { display: block; }
-
-  .alarm-status.status-warning {
-    border-left-color: var(--amber);
-    background: rgba(201,138,44,0.14);
-  }
-
-  .alarm-status.status-urgent {
-    border-left-color: var(--alert);
-    background: rgba(181,70,29,0.12);
-  }
-
-  .alarm-status .status-badge {
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--forest-deep);
-    margin-bottom: 4px;
-    display: block;
-  }
-
-  .alarm-status p { margin: 0; font-size: 0.92rem; }
-
-  .alarm-note {
-    font-size: 0.82rem;
-    color: var(--soil);
-    margin-top: 16px;
-  }
-
-  .guide-buttons {
-    display: flex;
-    gap: 14px;
-    flex-wrap: wrap;
-    margin-top: 36px;
-  }
-
-  .btn-guide {
-    flex: 1;
-    min-width: 220px;
-    padding: 20px 22px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    font-family: 'Public Sans', sans-serif;
-  }
-
-  .btn-guide .guide-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1.15rem;
-    font-weight: 600;
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .btn-guide .guide-sub {
-    font-size: 0.85rem;
-    opacity: 0.85;
-  }
-
-  .btn-guide.himbauan {
-    background: var(--leaf);
-    color: var(--forest-deep);
-  }
-
-  .btn-guide.larangan {
-    background: var(--alert);
-    color: #fff;
-  }
-
-  /* ---------- MODAL ---------- */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(29,40,20,0.55);
-    z-index: 100;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-
-  .modal-overlay.visible { display: flex; }
-
-  .modal-box {
-    background: var(--paper);
-    border-radius: 14px;
-    max-width: 560px;
-    width: 100%;
-    max-height: 84vh;
-    overflow-y: auto;
-    padding: 32px;
-    position: relative;
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 18px;
-    right: 18px;
-    background: var(--paper-dim);
-    border: none;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    font-size: 1.1rem;
-    cursor: pointer;
-    color: var(--ink);
-  }
-
-  .modal-box h3 {
-    font-size: 1.4rem;
-    margin-bottom: 18px;
-    padding-right: 30px;
-  }
-
-  .modal-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .modal-list li {
-    padding: 14px 0;
-    border-bottom: 1px solid var(--paper-dim);
-  }
-
-  .modal-list li:last-child { border-bottom: none; }
-
-  .modal-list .item-title {
-    font-weight: 700;
-    color: var(--forest-deep);
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .modal-list .item-desc {
-    font-size: 0.92rem;
-    color: var(--ink);
-    margin: 0;
-  }
-
-  /* ---------- FOOTER ---------- */
-  footer {
-    padding: 32px 0;
-    text-align: center;
-    color: var(--soil);
-    font-size: 0.85rem;
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand">NIKO-SHIELD</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Beranda</a>
+      <a href="tentang-produk.html">Tentang Produk</a>
+      <a href="manfaat.html">Manfaat</a>
+      <a href="cara-kerja.html">Cara Kerja</a>
+      <a href="kontak.html">Kontak</a>
+    </div>
+  </div>
+</nav>
+
 <section class="hero">
-  <div class="container hero-inner">
-    <div class="eyebrow">Biopestisida Sirkular</div>
-    <h1>NIKO-SHIELD</h1>
-    <p class="lead">Pestisida kontak berbahan nikotin daur ulang, dibuat dari puntung rokok dan minyak jelantah kota — untuk lahan yang lebih sehat dan hama yang lebih sedikit.</p>
-    <a href="#kalkulator" class="btn-primary">Hitung Dosis untuk Lahan Saya</a>
-    <div class="hero-footnote">Setiap botol NIKO-SHIELD mengubah limbah urban yang dulunya dibuang, jadi pelindung tanaman.</div>
-  </div>
-</section>
+  <div class="container hero-inner hero-centered">
+    <div class="hero-badge">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+        <path d="M28 6 C34 14 34 24 28 30 C22 24 22 14 28 6Z" fill="#7C9A57"/>
+        <path d="M12 20 C20 22 26 28 26 36 C18 34 12 28 12 20Z" fill="#4C6530"/>
+        <path d="M44 20 C36 22 30 28 30 36 C38 34 44 28 44 20Z" fill="#4C6530"/>
+        <circle cx="28" cy="38" r="9" fill="#C98A2C"/>
+        <circle cx="28" cy="38" r="4" fill="#8A5A1D"/>
+      </svg>
+    </div>
+    <div class="eyebrow" style="text-align:center;">Biopestisida Sirkular</div>
+    <h1 style="text-align:center;">NIKO-SHIELD</h1>
+    <p class="hero-tagline">Dari Limbah Kota, untuk Lahan Kita</p>
 
-<section class="about">
-  <div class="container">
-    <h2>Apa itu NIKO-SHIELD</h2>
-    <p class="section-sub">Biopestisida kontak kaya nikotin, hasil daur ulang sirkular dari limbah urban puntung rokok, minyak jelantah, dan sabun cuci bekas.</p>
-    <div class="about-grid">
-      <p>NIKO-SHIELD bekerja langsung pada kontak dengan hama, cocok untuk petani hortikultura yang menangani serangan pada tanaman cabai, tomat, dan sayuran lain.</p>
-      <div class="stat-row">
-        <div class="stat-card">
-          <h3>Waktu Aplikasi Terbaik</h3>
-          <p>Semprot wajib sore hari mulai pukul 16.00 ke atas, saat hama malam keluar dan penguapan lebih rendah.</p>
-        </div>
-        <div class="stat-card phi">
-          <h3>Masa Tunggu Panen (PHI)</h3>
-          <p>Hentikan penyemprotan 5 hari sebelum panen. Residu nikotin hancur sempurna lewat fotodegradasi (terurai oleh sinar matahari) dan biodegradasi (terurai oleh mikroba di daun).</p>
-        </div>
+    <div class="hero-icon-row">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+        <path d="M15 3 L20 10 L15 10 L15 3Z" fill="#fff"/>
+        <path d="M4 20 L4 13 L9 16 L4 20Z" fill="#fff"/>
+        <path d="M26 20 L26 13 L21 16 L26 20Z" fill="#fff"/>
+        <path d="M15 3 C22 3 27 8 27 13" stroke="#fff" stroke-width="2.2" fill="none"/>
+        <path d="M4 20 C4 13 9 8 15 6" stroke="#fff" stroke-width="2.2" fill="none"/>
+        <path d="M26 20 C26 25 21 27 15 27 C9 27 4 25 4 20" stroke="#fff" stroke-width="2.2" fill="none"/>
+      </svg>
+    </div>
+
+    <a href="cara-kerja.html#kalkulator" class="btn-primary">Hitung Dosis untuk Lahan Saya</a>
+  </div>
+
+  <div class="hero-features">
+    <div class="hero-feature">
+      <div class="hero-feature-icon">
+        <svg width="26" height="26" viewBox="0 0 30 30" fill="none">
+          <path d="M15 3 L20 10 L15 10 L15 3Z" fill="#fff"/>
+          <path d="M4 20 L4 13 L9 16 L4 20Z" fill="#fff"/>
+          <path d="M26 20 L26 13 L21 16 L26 20Z" fill="#fff"/>
+          <path d="M15 3 C22 3 27 8 27 13" stroke="#fff" stroke-width="2.2" fill="none"/>
+          <path d="M4 20 C4 13 9 8 15 6" stroke="#fff" stroke-width="2.2" fill="none"/>
+          <path d="M26 20 C26 25 21 27 15 27 C9 27 4 25 4 20" stroke="#fff" stroke-width="2.2" fill="none"/>
+        </svg>
       </div>
+      <span>Daur Ulang Limbah</span>
+    </div>
+    <div class="hero-feature">
+      <div class="hero-feature-icon">
+        <svg width="26" height="26" viewBox="0 0 30 30" fill="none">
+          <path d="M15 3 C22 6 25 10 25 16 C25 23 20 27 15 28 C10 27 5 23 5 16 C5 10 8 6 15 3Z" stroke="#fff" stroke-width="2" fill="none"/>
+          <path d="M15 10 L15 23" stroke="#fff" stroke-width="1.8"/>
+          <path d="M15 13 C18 13 20 15 20 18" stroke="#fff" stroke-width="1.6" fill="none"/>
+          <path d="M15 17 C12 17 10 19 10 22" stroke="#fff" stroke-width="1.6" fill="none"/>
+        </svg>
+      </div>
+      <span>Lindungi Tanaman</span>
+    </div>
+    <div class="hero-feature">
+      <div class="hero-feature-icon">
+        <svg width="26" height="26" viewBox="0 0 30 30" fill="none">
+          <path d="M15 26 L15 15" stroke="#fff" stroke-width="2"/>
+          <path d="M15 15 C15 9 20 7 24 7 C24 12 21 16 15 16Z" fill="#fff"/>
+          <path d="M15 18 C15 13 10 11 6 11 C6 16 9 19 15 19Z" fill="#fff"/>
+          <ellipse cx="15" cy="27" rx="7" ry="2" fill="#fff" opacity="0.4"/>
+        </svg>
+      </div>
+      <span>Dukung Pertanian Berkelanjutan</span>
     </div>
   </div>
 </section>
 
-<section class="hama">
+<section class="jual-limbah">
   <div class="container">
-    <h2>Target Hama NIKO-SHIELD</h2>
-    <p class="section-sub">Efektif untuk kelompok hama yang paling sering menyerang tanaman hortikultura.</p>
+    <h2>Jual Limbahmu di Sini</h2>
+    <p class="section-sub-light">Punya puntung rokok atau minyak jelantah bekas? Jual ke kami, jadi bahan baku NIKO-SHIELD berikutnya. Klik salah satu kartu untuk lihat harganya.</p>
 
-    <div class="hama-card">
-      <p style="margin-bottom:20px;">Produk ini sangat cocok dan paling ampuh untuk membasmi kelompok hama serangga bertubuh lunak (soft-bodied insects), serangga pengisap cairan daun, serta ulat yang menjadi musuh utama tanaman hortikultura (sayur, buah, hias).</p>
-      <div class="hama-field" style="margin-bottom:0;">
-        <span class="label">Rekomendasi Solusi</span>
-        <div class="rekomendasi">
-          <p style="margin:0;">Semprotkan NIKO-SHIELD dosis presisi 1:10 pada sore hari, arahkan ke permukaan daun tempat hama biasa bersembunyi atau berkoloni.</p>
+    <div class="limbah-grid">
+      <button type="button" class="limbah-card" onclick="this.classList.toggle('terbuka')">
+        <div class="limbah-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+            <rect x="6" y="14" width="18" height="7" rx="3.5" fill="#fff"/>
+            <rect x="20" y="14" width="6" height="7" rx="1.5" fill="#C98A2C"/>
+            <line x1="26" y1="17.5" x2="30" y2="17.5" stroke="#fff" stroke-width="1.5" stroke-dasharray="1.5 1.5"/>
+          </svg>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="kalkulator" id="kalkulator">
-  <div class="container">
-    <h2>Kalkulator Dosis</h2>
-    <p class="section-sub">Masukkan luas lahan Anda, dan kami hitungkan kebutuhan air serta NIKO-SHIELD-nya.</p>
-
-    <div class="calc-box">
-      <div class="calc-input-row">
-        <div class="calc-field">
-          <label for="luasLahan">Luas Lahan Petani (m²)</label>
-          <input type="number" id="luasLahan" min="0" step="any" placeholder="Contoh: 500" inputmode="decimal">
+        <span class="limbah-nama">Puntung Rokok</span>
+        <span class="limbah-hint">Klik untuk lihat harga jual</span>
+        <div class="limbah-harga">
+          <span class="harga-angka">Rp30.000</span><br>
+          <span class="harga-satuan">per kilogram</span>
         </div>
-        <button class="btn-primary" onclick="hitungDosis()">Hitung</button>
-      </div>
-      <p class="calc-hint">Dosis presisi 1:10 — mengikuti rekomendasi pada katalog hama di atas.</p>
-      <p class="calc-error" id="calcError">Masukkan luas lahan yang valid (lebih dari 0 m²) terlebih dahulu.</p>
-
-      <div class="calc-results" id="calcResults">
-        <div class="result-card">
-          <div class="num" id="hasilAir">0<span class="unit">L</span></div>
-          <div class="desc">Kebutuhan Air Terbuka</div>
-        </div>
-        <div class="result-card">
-          <div class="num" id="hasilNiko">0<span class="unit">ml</span></div>
-          <div class="desc">Kebutuhan NIKO-SHIELD</div>
-        </div>
-        <div class="result-card">
-          <div class="num" id="hasilGelas">0<span class="unit">gelas</span></div>
-          <div class="desc">Takaran Gelas Ukur (200ml)</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="pengingat">
-  <div class="container">
-    <h2>Pengingat & Panduan Aplikasi</h2>
-    <p class="section-sub">NIKO-SHIELD bersifat biodegradable — terurai lewat fotodegradasi (sinar matahari) dan biodegradasi (mikroba daun), sehingga perlindungan di daun hilang setelah 48 jam. Atur pengingat semprot ulang, dan pelajari cara aplikasi yang aman.</p>
-
-    <div class="alarm-box">
-      <h3 style="font-size:1.15rem; margin-bottom:16px;">Alarm Estimasi Penyemprotan Selanjutnya</h3>
-      <div class="alarm-form-row">
-        <div class="alarm-field">
-          <label for="tglSemprot">Tanggal Terakhir Semprot</label>
-          <input type="date" id="tglSemprot">
-        </div>
-        <div class="alarm-field">
-          <label>Kondisi Lahan</label>
-          <div class="severity-toggle">
-            <button type="button" class="severity-btn active" id="btnNormal" onclick="pilihKondisi('normal')">Normal (7 hari)</button>
-            <button type="button" class="severity-btn" id="btnWabah" onclick="pilihKondisi('wabah')">Wabah Parah (3 hari)</button>
-          </div>
-        </div>
-        <button class="btn-primary" onclick="aktifkanAlarm()">Aktifkan Pengingat</button>
-      </div>
-
-      <div class="alarm-status" id="alarmStatus">
-        <span class="status-badge" id="alarmBadge">—</span>
-        <p id="alarmDesc">—</p>
-      </div>
-
-      <p class="alarm-note" id="alarmNote">Pengingat aktif selama halaman ini dibuka di HP Anda. Untuk notifikasi otomatis, izinkan notifikasi saat diminta browser.</p>
-    </div>
-
-    <div class="guide-buttons">
-      <button class="btn-guide himbauan" onclick="bukaModal('modalHimbauan')">
-        <span class="guide-title">Klik Himbauan</span>
-        <span class="guide-sub">Panduan K3 & teknik aplikasi aman di lapangan</span>
       </button>
-      <button class="btn-guide larangan" onclick="bukaModal('modalLarangan')">
-        <span class="guide-title">Klik Larangan</span>
-        <span class="guide-sub">Aturan mutlak demi keamanan pangan & efektivitas</span>
+
+      <button type="button" class="limbah-card" onclick="this.classList.toggle('terbuka')">
+        <div class="limbah-icon">
+          <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+            <path d="M13 5H21L22 12C24 14 25 17 25 20C25 25.5 21.4 29 17 29C12.6 29 9 25.5 9 20C9 17 10 14 12 12L13 5Z" fill="#fff"/>
+            <rect x="14" y="3" width="6" height="3" rx="1" fill="#fff"/>
+          </svg>
+        </div>
+        <span class="limbah-nama">Minyak Jelantah</span>
+        <span class="limbah-hint">Klik untuk lihat harga jual</span>
+        <div class="limbah-harga">
+          <span class="harga-angka">Rp7.000</span><br>
+          <span class="harga-satuan">per kilogram</span>
+        </div>
       </button>
     </div>
-  </div>
-</section>
 
-<div class="modal-overlay" id="modalHimbauan">
-  <div class="modal-box">
-    <button class="modal-close" onclick="tutupModal('modalHimbauan')">✕</button>
-    <h3>Himbauan: K3 & Teknik Aplikasi</h3>
-    <ul class="modal-list">
-      <li>
-        <span class="item-title">Wajib Gunakan Atribut Lengkap (APD)</span>
-        <p class="item-desc">Gunakan masker (penutup hidung), kacamata pelindung, baju lengan panjang, dan sarung tangan saat mencampur dan menyemprot cairan untuk menghindari kontak langsung dengan kulit atau mata.</p>
-      </li>
-      <li>
-        <span class="item-title">Perhatikan Arah Angin</span>
-        <p class="item-desc">Selalu lakukan penyemprotan searah dengan embusan angin (membelakangi angin). Jangan pernah menyemprot melawan arah angin agar uap cairan tidak berbalik mengenai wajah Anda.</p>
-      </li>
-      <li>
-        <span class="item-title">Cuci Tangan dan Mandi Pasca-Aplikasi</span>
-        <p class="item-desc">Segera bersihkan diri menggunakan sabun dan air mengalir setelah seluruh proses penyemprotan di lahan selesai.</p>
-      </li>
-      <li>
-        <span class="item-title">Wajib Semprot Sore Hari</span>
-        <p class="item-desc">Lakukan pengaplikasian mulai pukul 16.00 ke atas guna menghindari penguapan dini oleh matahari dan memaksimalkan kontak racun pada hama malam.</p>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modalLarangan">
-  <div class="modal-box">
-    <button class="modal-close" onclick="tutupModal('modalLarangan')">✕</button>
-    <h3>Larangan: Keamanan Pangan</h3>
-    <ul class="modal-list">
-      <li>
-        <span class="item-title">Dilarang Menyemprot 5 Hari Sebelum Panen</span>
-        <p class="item-desc">Ini adalah masa tunggu mutlak (Pre-Harvest Interval / PHI) agar sinar matahari (fotodegradasi) dan bakteri daun (biodegradasi) memiliki waktu untuk melumat habis residu nikotin hingga 0% sebelum buah dikonsumsi manusia.</p>
-      </li>
-      <li>
-        <span class="item-title">Jangan Campur dengan Pestisida Kimia</span>
-        <p class="item-desc">Pencampuran dengan bahan kimia sintetis pabrik dapat merusak struktur organik nikotin dan membunuh mikroba baik yang ada di permukaan daun.</p>
-      </li>
-      <li>
-        <span class="item-title">Dilarang Menyemprot di Bawah Terik Matahari Siang</span>
-        <p class="item-desc">Paparan panas ekstrem akan membuat zat aktif nikotin menguap dalam hitungan menit sebelum sempat meracuni hama, sehingga aplikasi menjadi sia-sia.</p>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<section class="qr-share">
-  <div class="container">
-    <h2>Bagikan ke Petani Lain</h2>
-    <p class="section-sub">Scan QR ini untuk buka kalkulator dosis langsung dari HP, tanpa perlu ketik link.</p>
-
-    <div class="qr-box">
-      <div id="qrcodeCanvas"></div>
-      <div class="qr-text">
-        <p>Tempel QR ini di kios pupuk, spanduk penyuluhan, atau kemasan NIKO-SHIELD supaya petani bisa langsung scan dan hitung kebutuhan lahannya sendiri.</p>
-        <span class="qr-link" id="qrLinkText">memuat link...</span>
-        <div class="qr-actions">
-          <button class="btn-secondary" onclick="unduhQR()">Unduh QR (PNG)</button>
-          <button class="btn-secondary" onclick="salinLink()">Salin Link</button>
-        </div>
-        <p class="qr-note" id="qrNote">QR ini otomatis mengarah ke link halaman ini saat sudah online/hosting.</p>
-      </div>
-    </div>
+    <p class="limbah-note">Harga dapat berubah sewaktu-waktu mengikuti harga pasar bahan daur ulang.</p>
   </div>
 </section>
 
 <footer>
   NIKO-SHIELD — biopestisida daur ulang untuk lahan yang lebih sehat.
 </footer>
-
-<script>
-  function hitungDosis() {
-    const input = document.getElementById('luasLahan');
-    const luas = parseFloat(input.value);
-    const errorEl = document.getElementById('calcError');
-    const resultsEl = document.getElementById('calcResults');
-
-    if (isNaN(luas) || luas <= 0) {
-      errorEl.classList.add('visible');
-      resultsEl.classList.remove('visible');
-      return;
-    }
-    errorEl.classList.remove('visible');
-
-    const air = luas * 0.1;                 // Liter
-    const niko = air * 100;                  // ml
-    const gelas = Math.ceil(niko / 200);     // dibulatkan ke atas, gelas ukur 200ml
-
-    document.getElementById('hasilAir').innerHTML = formatAngka(air) + '<span class="unit">L</span>';
-    document.getElementById('hasilNiko').innerHTML = formatAngka(niko) + '<span class="unit">ml</span>';
-    document.getElementById('hasilGelas').innerHTML = gelas + '<span class="unit">gelas</span>';
-
-    resultsEl.classList.add('visible');
-  }
-
-  function formatAngka(n) {
-    return Number.isInteger(n) ? n.toString() : n.toFixed(1);
-  }
-
-  document.getElementById('luasLahan').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') hitungDosis();
-  });
-
-  // ---- QR CODE: otomatis mengarah ke URL halaman ini ----
-  const urlHalaman = window.location.href;
-  document.getElementById('qrLinkText').textContent = urlHalaman;
-
-  new QRCode(document.getElementById('qrcodeCanvas'), {
-    text: urlHalaman,
-    width: 180,
-    height: 180,
-    colorDark: '#1D2814',
-    colorLight: '#ffffff',
-    correctLevel: QRCode.CorrectLevel.M
-  });
-
-  // Kalau dibuka langsung dari file lokal (file://), kasih tau QR belum bisa dipakai
-  if (urlHalaman.startsWith('file://')) {
-    document.getElementById('qrNote').textContent =
-      'Halaman ini masih dibuka dari file lokal, jadi QR belum bisa di-scan orang lain. Upload dulu ke hosting (contoh: Netlify/GitHub Pages), baru QR-nya otomatis valid.';
-  }
-
-  function unduhQR() {
-    const canvas = document.querySelector('#qrcodeCanvas canvas');
-    if (!canvas) return;
-    const link = document.createElement('a');
-    link.download = 'qr-niko-shield.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-  }
-
-  function salinLink() {
-    navigator.clipboard.writeText(urlHalaman).then(() => {
-      alert('Link berhasil disalin: ' + urlHalaman);
-    }).catch(() => {
-      alert('Gagal menyalin otomatis. Salin manual: ' + urlHalaman);
-    });
-  }
-
-  // ---- ALARM PENGINGAT PENYEMPROTAN ----
-  let kondisiTerpilih = 'normal'; // 'normal' = 7 hari, 'wabah' = 3 hari
-
-  function pilihKondisi(kondisi) {
-    kondisiTerpilih = kondisi;
-    document.getElementById('btnNormal').classList.toggle('active', kondisi === 'normal');
-    document.getElementById('btnWabah').classList.toggle('active', kondisi === 'wabah');
-  }
-
-  function hitungStatusAlarm(tglTerakhir, kondisi) {
-    const interval = kondisi === 'wabah' ? 3 : 7;
-    const tglBerikut = new Date(tglTerakhir);
-    tglBerikut.setDate(tglBerikut.getDate() + interval);
-
-    const sekarang = new Date();
-    sekarang.setHours(0,0,0,0);
-    tglBerikut.setHours(0,0,0,0);
-
-    const selisihHari = Math.round((tglBerikut - sekarang) / (1000 * 60 * 60 * 24));
-    return { tglBerikut, selisihHari, interval };
-  }
-
-  function tampilkanStatusAlarm(tglTerakhir, kondisi) {
-    const { tglBerikut, selisihHari, interval } = hitungStatusAlarm(tglTerakhir, kondisi);
-    const statusEl = document.getElementById('alarmStatus');
-    const badgeEl = document.getElementById('alarmBadge');
-    const descEl = document.getElementById('alarmDesc');
-    const tglFormat = tglBerikut.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-
-    statusEl.classList.remove('status-warning', 'status-urgent');
-
-    if (selisihHari <= 0) {
-      statusEl.classList.add('status-urgent');
-      badgeEl.textContent = 'Waktunya Semprot Ulang!';
-      descEl.textContent = 'Perlindungan NIKO-SHIELD sudah terurai. Segera lakukan penyemprotan ulang sore ini, jadwal seharusnya: ' + tglFormat + '.';
-    } else if (selisihHari <= 2) {
-      statusEl.classList.add('status-warning');
-      badgeEl.textContent = selisihHari + ' hari lagi';
-      descEl.textContent = 'Bersiap untuk penyemprotan berikutnya pada ' + tglFormat + ' (interval ' + interval + ' hari, kondisi ' + (kondisi === 'wabah' ? 'wabah parah' : 'normal') + ').';
-    } else {
-      badgeEl.textContent = selisihHari + ' hari lagi';
-      descEl.textContent = 'Lahan masih terlindungi. Jadwal semprot berikutnya: ' + tglFormat + ' (interval ' + interval + ' hari, kondisi ' + (kondisi === 'wabah' ? 'wabah parah' : 'normal') + ').';
-    }
-
-    statusEl.classList.add('visible');
-    return selisihHari;
-  }
-
-  function aktifkanAlarm() {
-    const tglInput = document.getElementById('tglSemprot').value;
-    if (!tglInput) {
-      alert('Pilih tanggal terakhir semprot terlebih dahulu.');
-      return;
-    }
-
-    try {
-      localStorage.setItem('niko_tgl_semprot', tglInput);
-      localStorage.setItem('niko_kondisi', kondisiTerpilih);
-    } catch (e) {
-      // Penyimpanan tidak tersedia (mis. mode privat) - alarm tetap tampil untuk sesi ini
-    }
-
-    const { tglBerikut, selisihHari } = hitungStatusAlarm(tglInput, kondisiTerpilih);
-    tampilkanStatusAlarm(tglInput, kondisiTerpilih);
-    aturNotifikasi(selisihHari, tglBerikut, true);
-  }
-
-  function aturNotifikasi(selisihHari, tglBerikut, konfirmasiAwal) {
-    if (!('Notification' in window)) {
-      alert('Browser ini tidak mendukung notifikasi. Pengingat tetap tersimpan dan bisa dilihat lewat kotak status di halaman ini.');
-      return;
-    }
-
-    const kirimNotif = function() {
-      if (selisihHari <= 0) {
-        new Notification('NIKO-SHIELD: Waktunya semprot ulang!', {
-          body: 'Perlindungan sudah terurai. Segera semprot ulang lahan Anda sore ini.'
-        });
-      } else if (konfirmasiAwal) {
-        const tglFormat = tglBerikut.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-        new Notification('Pengingat NIKO-SHIELD aktif', {
-          body: 'Anda akan diingatkan lagi untuk semprot ulang pada ' + tglFormat + '.'
-        });
-      }
-    };
-
-    if (Notification.permission === 'granted') {
-      kirimNotif();
-    } else if (Notification.permission !== 'denied') {
-      Notification.requestPermission().then(function(izin) {
-        if (izin === 'granted') {
-          kirimNotif();
-        } else if (konfirmasiAwal) {
-          alert('Notifikasi tidak diizinkan. Pengingat tetap tersimpan, cek kotak status di halaman ini secara berkala.');
-        }
-      });
-    } else if (konfirmasiAwal) {
-      alert('Notifikasi diblokir di browser ini. Pengingat tetap tersimpan, cek kotak status di halaman ini secara berkala.');
-    }
-  }
-
-  // Saat halaman dibuka, muat ulang pengingat yang sudah pernah disimpan
-  window.addEventListener('load', function() {
-    try {
-      const tglTersimpan = localStorage.getItem('niko_tgl_semprot');
-      const kondisiTersimpan = localStorage.getItem('niko_kondisi');
-      if (tglTersimpan) {
-        document.getElementById('tglSemprot').value = tglTersimpan;
-        if (kondisiTersimpan) pilihKondisi(kondisiTersimpan);
-        tampilkanStatusAlarm(tglTersimpan, kondisiTersimpan || 'normal');
-        const { tglBerikut, selisihHari } = hitungStatusAlarm(tglTersimpan, kondisiTersimpan || 'normal');
-        aturNotifikasi(selisihHari, tglBerikut, false);
-      }
-    } catch (e) {
-      // localStorage tidak tersedia, lewati pemuatan otomatis
-    }
-  });
-
-  // ---- MODAL HIMBAUAN & LARANGAN ----
-  function bukaModal(id) {
-    document.getElementById(id).classList.add('visible');
-  }
-
-  function tutupModal(id) {
-    document.getElementById(id).classList.remove('visible');
-  }
-
-  document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) overlay.classList.remove('visible');
-    });
-  });
-</script>
 
 </body>
 </html>
