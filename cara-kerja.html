@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cara Kerja — NIKO-SHIELD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=hamburger3">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="inner-page">
+
+<nav class="site-nav reference-nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand brand-mark"><img src="assets/niko-shield-emblem.png" alt="Lambang NIKO-SHIELD"><span>NIKO-SHIELD</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="">Beranda</a>
+      <a href="tentang-produk.html" class="">Tentang</a>
+      <a href="#" class="" onclick="return false;">Produk</a>
+      <a href="manfaat.html" class="">Manfaat</a>
+      <a href="cara-kerja.html" class="active">Cara Kerja</a>
+      <a href="kontak.html" class="">Kontak</a>
+      <button type="button" class="nav-buy" onclick="this.classList.toggle(\'clicked\')">Beli Sekarang</button>
+    </div>
+    <button class="mobile-menu-toggle" type="button" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <h1>Cara Kerja NIKO-SHIELD</h1>
+    <p>Biopestisida kontak — hitung dosis, atur pengingat, dan pelajari cara aplikasi yang aman</p>
+  </div>
+</div>
+
+<section class="kalkulator" id="kalkulator">
+  <div class="container">
+    <h2>Kalkulator Dosis</h2>
+    <p class="section-sub">Masukkan luas lahan Anda, dan kami hitungkan kebutuhan air serta NIKO-SHIELD-nya.</p>
+
+    <div class="calc-box">
+      <div class="calc-input-row">
+        <div class="calc-field">
+          <label for="luasLahan">Luas Lahan Petani (m²)</label>
+          <input type="number" id="luasLahan" min="0" step="any" placeholder="Contoh: 500" inputmode="decimal">
+        </div>
+        <button class="btn-primary" onclick="hitungDosis()">Hitung</button>
+      </div>
+      <p class="calc-hint">Dosis presisi 1:10 — bekerja langsung pada kontak dengan hama.</p>
+      <p class="calc-error" id="calcError">Masukkan luas lahan yang valid (lebih dari 0 m²) terlebih dahulu.</p>
+
+      <div class="calc-results" id="calcResults">
+        <div class="result-card">
+          <div class="num" id="hasilAir">0<span class="unit">L</span></div>
+          <div class="desc">Kebutuhan Air Terbuka</div>
+        </div>
+        <div class="result-card">
+          <div class="num" id="hasilNiko">0<span class="unit">ml</span></div>
+          <div class="desc">Kebutuhan NIKO-SHIELD</div>
+        </div>
+        <div class="result-card">
+          <div class="num" id="hasilGelas">0<span class="unit">gelas</span></div>
+          <div class="desc">Takaran Gelas Ukur (200ml)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pengingat">
+  <div class="container">
+    <h2>Pengingat & Panduan Aplikasi</h2>
+    <p class="section-sub">NIKO-SHIELD bersifat biodegradable — terurai lewat fotodegradasi (sinar matahari) dan biodegradasi (mikroba daun), sehingga perlindungan di daun hilang setelah 48 jam. Atur pengingat semprot ulang, dan pelajari cara aplikasi yang aman.</p>
+
+    <div class="alarm-box">
+      <h3 style="font-size:1.15rem; margin-bottom:16px;">Alarm Estimasi Penyemprotan Selanjutnya</h3>
+      <div class="alarm-form-row">
+        <div class="alarm-field">
+          <label for="tglSemprot">Tanggal Terakhir Semprot</label>
+          <input type="date" id="tglSemprot">
+        </div>
+        <div class="alarm-field">
+          <label>Kondisi Lahan</label>
+          <div class="severity-toggle">
+            <button type="button" class="severity-btn active" id="btnNormal" onclick="pilihKondisi('normal')">Normal (7 hari)</button>
+            <button type="button" class="severity-btn" id="btnWabah" onclick="pilihKondisi('wabah')">Wabah Parah (3 hari)</button>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="aktifkanAlarm()">Aktifkan Pengingat</button>
+      </div>
+
+      <div class="alarm-status" id="alarmStatus">
+        <span class="status-badge" id="alarmBadge">—</span>
+        <p id="alarmDesc">—</p>
+      </div>
+
+      <p class="alarm-note" id="alarmNote">Pengingat aktif selama halaman ini dibuka di HP Anda — akan berbunyi otomatis saat sudah waktunya semprot ulang. Untuk notifikasi juga, izinkan notifikasi saat diminta browser.</p>
+    </div>
+
+    <div class="guide-buttons">
+      <button class="btn-guide himbauan" onclick="bukaModal('modalHimbauan')">
+        <span class="guide-title">Klik Himbauan</span>
+        <span class="guide-sub">Panduan K3 & teknik aplikasi aman di lapangan</span>
+      </button>
+      <button class="btn-guide larangan" onclick="bukaModal('modalLarangan')">
+        <span class="guide-title">Klik Larangan</span>
+        <span class="guide-sub">Aturan mutlak demi keamanan pangan & efektivitas</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="modalHimbauan">
+  <div class="modal-box">
+    <button class="modal-close" onclick="tutupModal('modalHimbauan')">✕</button>
+    <h3>Himbauan: K3 & Teknik Aplikasi</h3>
+    <ul class="modal-list">
+      <li>
+        <span class="item-title">Wajib Gunakan Atribut Lengkap (APD)</span>
+        <p class="item-desc">Gunakan masker (penutup hidung), kacamata pelindung, baju lengan panjang, dan sarung tangan saat mencampur dan menyemprot cairan untuk menghindari kontak langsung dengan kulit atau mata.</p>
+      </li>
+      <li>
+        <span class="item-title">Perhatikan Arah Angin</span>
+        <p class="item-desc">Selalu lakukan penyemprotan searah dengan embusan angin (membelakangi angin). Jangan pernah menyemprot melawan arah angin agar uap cairan tidak berbalik mengenai wajah Anda.</p>
+      </li>
+      <li>
+        <span class="item-title">Cuci Tangan dan Mandi Pasca-Aplikasi</span>
+        <p class="item-desc">Segera bersihkan diri menggunakan sabun dan air mengalir setelah seluruh proses penyemprotan di lahan selesai.</p>
+      </li>
+      <li>
+        <span class="item-title">Wajib Semprot Sore Hari</span>
+        <p class="item-desc">Lakukan pengaplikasian mulai pukul 16.00 ke atas guna menghindari penguapan dini oleh matahari dan memaksimalkan kontak racun pada hama malam.</p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalLarangan">
+  <div class="modal-box">
+    <button class="modal-close" onclick="tutupModal('modalLarangan')">✕</button>
+    <h3>Larangan: Keamanan Pangan</h3>
+    <ul class="modal-list">
+      <li>
+        <span class="item-title">Dilarang Menyemprot 5 Hari Sebelum Panen</span>
+        <p class="item-desc">Ini adalah masa tunggu mutlak (Pre-Harvest Interval / PHI) agar sinar matahari (fotodegradasi) dan bakteri daun (biodegradasi) memiliki waktu untuk melumat habis residu nikotin hingga 0% sebelum buah dikonsumsi manusia.</p>
+      </li>
+      <li>
+        <span class="item-title">Jangan Campur dengan Pestisida Kimia</span>
+        <p class="item-desc">Pencampuran dengan bahan kimia sintetis pabrik dapat merusak struktur organik nikotin dan membunuh mikroba baik yang ada di permukaan daun.</p>
+      </li>
+      <li>
+        <span class="item-title">Dilarang Menyemprot di Bawah Terik Matahari Siang</span>
+        <p class="item-desc">Paparan panas ekstrem akan membuat zat aktif nikotin menguap dalam hitungan menit sebelum sempat meracuni hama, sehingga aplikasi menjadi sia-sia.</p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<section class="qr-share">
+  <div class="container">
+    <h2>Bagikan ke Petani Lain</h2>
+    <p class="section-sub">Scan QR ini untuk buka kalkulator dosis langsung dari HP, tanpa perlu ketik link.</p>
+
+    <div class="qr-box">
+      <div id="qrcodeCanvas"></div>
+      <div class="qr-text">
+        <p>Tempel QR ini di kios pupuk, spanduk penyuluhan, atau kemasan NIKO-SHIELD supaya petani bisa langsung scan dan hitung kebutuhan lahannya sendiri.</p>
+        <span class="qr-link" id="qrLinkText">memuat link...</span>
+        <div class="qr-actions">
+          <button class="btn-secondary" onclick="unduhQR()">Unduh QR (PNG)</button>
+          <button class="btn-secondary" onclick="salinLink()">Salin Link</button>
+        </div>
+        <p class="qr-note" id="qrNote">QR ini otomatis mengarah ke link halaman ini saat sudah online/hosting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  NIKO-SHIELD — biopestisida daur ulang untuk lahan yang lebih sehat.
+<br>Email: <a href="mailto:nikoshield@gmail.com">nikoshield@gmail.com</a>
+</footer>
+
+<script>
+  function hitungDosis() {
+    const input = document.getElementById('luasLahan');
+    const luas = parseFloat(input.value);
+    const errorEl = document.getElementById('calcError');
+    const resultsEl = document.getElementById('calcResults');
+
+    if (isNaN(luas) || luas <= 0) {
+      errorEl.classList.add('visible');
+      resultsEl.classList.remove('visible');
+      return;
+    }
+    errorEl.classList.remove('visible');
+
+    const air = luas * 0.1;
+    const niko = air * 100;
+    const gelas = Math.ceil(niko / 200);
+
+    document.getElementById('hasilAir').innerHTML = formatAngka(air) + '<span class="unit">L</span>';
+    document.getElementById('hasilNiko').innerHTML = formatAngka(niko) + '<span class="unit">ml</span>';
+    document.getElementById('hasilGelas').innerHTML = gelas + '<span class="unit">gelas</span>';
+
+    resultsEl.classList.add('visible');
+  }
+
+  function formatAngka(n) {
+    return Number.isInteger(n) ? n.toString() : n.toFixed(1);
+  }
+
+  document.getElementById('luasLahan').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') hitungDosis();
+  });
+
+  const urlHalaman = window.location.href;
+  document.getElementById('qrLinkText').textContent = urlHalaman;
+
+  new QRCode(document.getElementById('qrcodeCanvas'), {
+    text: urlHalaman,
+    width: 180,
+    height: 180,
+    colorDark: '#1D2814',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  if (urlHalaman.startsWith('file://')) {
+    document.getElementById('qrNote').textContent =
+      'Halaman ini masih dibuka dari file lokal, jadi QR belum bisa di-scan orang lain. Upload dulu ke hosting, baru QR-nya otomatis valid.';
+  }
+
+  function unduhQR() {
+    const canvas = document.querySelector('#qrcodeCanvas canvas');
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = 'qr-niko-shield.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }
+
+  function salinLink() {
+    navigator.clipboard.writeText(urlHalaman).then(() => {
+      alert('Link berhasil disalin: ' + urlHalaman);
+    }).catch(() => {
+      alert('Gagal menyalin otomatis. Salin manual: ' + urlHalaman);
+    });
+  }
+
+  let kondisiTerpilih = 'normal';
+
+  function pilihKondisi(kondisi) {
+    kondisiTerpilih = kondisi;
+    document.getElementById('btnNormal').classList.toggle('active', kondisi === 'normal');
+    document.getElementById('btnWabah').classList.toggle('active', kondisi === 'wabah');
+  }
+
+  function hitungStatusAlarm(tglTerakhir, kondisi) {
+    const interval = kondisi === 'wabah' ? 3 : 7;
+    const tglBerikut = new Date(tglTerakhir);
+    tglBerikut.setDate(tglBerikut.getDate() + interval);
+
+    const sekarang = new Date();
+    sekarang.setHours(0,0,0,0);
+    tglBerikut.setHours(0,0,0,0);
+
+    const selisihHari = Math.round((tglBerikut - sekarang) / (1000 * 60 * 60 * 24));
+    return { tglBerikut, selisihHari, interval };
+  }
+
+  function bunyikanAlarm() {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const waktuMulai = ctx.currentTime;
+      for (let i = 0; i < 3; i++) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.value = 880;
+        const mulai = waktuMulai + i * 0.5;
+        gain.gain.setValueAtTime(0, mulai);
+        gain.gain.linearRampToValueAtTime(0.35, mulai + 0.05);
+        gain.gain.linearRampToValueAtTime(0, mulai + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(mulai);
+        osc.stop(mulai + 0.4);
+      }
+    } catch (e) {}
+  }
+
+  function tampilkanStatusAlarm(tglTerakhir, kondisi) {
+    const { tglBerikut, selisihHari, interval } = hitungStatusAlarm(tglTerakhir, kondisi);
+    const statusEl = document.getElementById('alarmStatus');
+    const badgeEl = document.getElementById('alarmBadge');
+    const descEl = document.getElementById('alarmDesc');
+    const tglFormat = tglBerikut.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+    statusEl.classList.remove('status-warning', 'status-urgent');
+
+    if (selisihHari <= 0) {
+      statusEl.classList.add('status-urgent');
+      badgeEl.textContent = 'Waktunya Semprot Ulang!';
+      descEl.textContent = 'Perlindungan NIKO-SHIELD sudah terurai. Segera lakukan penyemprotan ulang sore ini, jadwal seharusnya: ' + tglFormat + '.';
+      bunyikanAlarm();
+    } else if (selisihHari <= 2) {
+      statusEl.classList.add('status-warning');
+      badgeEl.textContent = selisihHari + ' hari lagi';
+      descEl.textContent = 'Bersiap untuk penyemprotan berikutnya pada ' + tglFormat + ' (interval ' + interval + ' hari, kondisi ' + (kondisi === 'wabah' ? 'wabah parah' : 'normal') + ').';
+    } else {
+      badgeEl.textContent = selisihHari + ' hari lagi';
+      descEl.textContent = 'Lahan masih terlindungi. Jadwal semprot berikutnya: ' + tglFormat + ' (interval ' + interval + ' hari, kondisi ' + (kondisi === 'wabah' ? 'wabah parah' : 'normal') + ').';
+    }
+
+    statusEl.classList.add('visible');
+    return selisihHari;
+  }
+
+  function aktifkanAlarm() {
+    const tglInput = document.getElementById('tglSemprot').value;
+    if (!tglInput) {
+      alert('Pilih tanggal terakhir semprot terlebih dahulu.');
+      return;
+    }
+
+    try {
+      localStorage.setItem('niko_tgl_semprot', tglInput);
+      localStorage.setItem('niko_kondisi', kondisiTerpilih);
+    } catch (e) {}
+
+    const { tglBerikut, selisihHari } = hitungStatusAlarm(tglInput, kondisiTerpilih);
+    tampilkanStatusAlarm(tglInput, kondisiTerpilih);
+    aturNotifikasi(selisihHari, tglBerikut, true);
+  }
+
+  function aturNotifikasi(selisihHari, tglBerikut, konfirmasiAwal) {
+    if (!('Notification' in window)) {
+      alert('Browser ini tidak mendukung notifikasi. Pengingat tetap tersimpan dan bisa dilihat lewat kotak status di halaman ini.');
+      return;
+    }
+
+    const kirimNotif = function() {
+      if (selisihHari <= 0) {
+        new Notification('NIKO-SHIELD: Waktunya semprot ulang!', {
+          body: 'Perlindungan sudah terurai. Segera semprot ulang lahan Anda sore ini.'
+        });
+      } else if (konfirmasiAwal) {
+        const tglFormat = tglBerikut.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+        new Notification('Pengingat NIKO-SHIELD aktif', {
+          body: 'Anda akan diingatkan lagi untuk semprot ulang pada ' + tglFormat + '.'
+        });
+      }
+    };
+
+    if (Notification.permission === 'granted') {
+      kirimNotif();
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then(function(izin) {
+        if (izin === 'granted') {
+          kirimNotif();
+        } else if (konfirmasiAwal) {
+          alert('Notifikasi tidak diizinkan. Pengingat tetap tersimpan, cek kotak status di halaman ini secara berkala.');
+        }
+      });
+    } else if (konfirmasiAwal) {
+      alert('Notifikasi diblokir di browser ini. Pengingat tetap tersimpan, cek kotak status di halaman ini secara berkala.');
+    }
+  }
+
+  window.addEventListener('load', function() {
+    try {
+      const tglTersimpan = localStorage.getItem('niko_tgl_semprot');
+      const kondisiTersimpan = localStorage.getItem('niko_kondisi');
+      if (tglTersimpan) {
+        document.getElementById('tglSemprot').value = tglTersimpan;
+        if (kondisiTersimpan) pilihKondisi(kondisiTersimpan);
+        tampilkanStatusAlarm(tglTersimpan, kondisiTersimpan || 'normal');
+        const { tglBerikut, selisihHari } = hitungStatusAlarm(tglTersimpan, kondisiTersimpan || 'normal');
+        aturNotifikasi(selisihHari, tglBerikut, false);
+      }
+    } catch (e) {}
+  });
+
+  function bukaModal(id) {
+    document.getElementById(id).classList.add('visible');
+  }
+
+  function tutupModal(id) {
+    document.getElementById(id).classList.remove('visible');
+  }
+
+  document.querySelectorAll('.modal-overlay').forEach(function(overlay) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) overlay.classList.remove('visible');
+    });
+  });
+</script>
+
+
+<script>
+/* NIKO-SHIELD mobile menu */
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.querySelector(".mobile-menu-toggle");
+  const links = document.querySelector(".nav-links");
+  if (!toggle || !links) return;
+  toggle.addEventListener("click", function () {
+    const open = links.classList.toggle("mobile-open");
+    toggle.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  links.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () {
+      links.classList.remove("mobile-open");
+      toggle.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+});
+</script>
+<!-- NIKO-SHIELD mobile menu -->
+</body>
+</html>
